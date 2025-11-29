@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define MAX_NUM 101
+
 /*
 Given the array nums, for each nums[i] find out how many numbers in the array are smaller than it. That is, for each nums[i] you have to count the number of valid j's such that j != i and nums[j] < nums[i].
 
@@ -29,31 +31,37 @@ int *smallerNumbersThanCurrent(int *nums, int numsSize, int *returnSize)
 {
     int *res = (int *)malloc(numsSize * sizeof(int));
     *returnSize = numsSize;
-    for (int i = 0; i < numsSize; i++)
+    int *counter = (int *)malloc(MAX_NUM * sizeof(int));
+
+    // Initialize counter array to 0
+    for (int i = 0; i < MAX_NUM; i++)
     {
-        ;
-        res[i] = 0;
+        counter[i] = 0;
     }
+
+    // For each number in nums, increment its count in counter
     for (int i = 0; i < numsSize; i++)
     {
-        for (int j = i + 1; j < numsSize; j++)
-        {
-            if (nums[j] < nums[i])
-            {
-                res[i] = res[i] + 1;
-            }
-            else if (nums[j] > nums[i])
-            {
-                res[j] = res[j] + 1;
-            }
-        }
+        counter[nums[i]] += 1;
+    }
+
+    // Modify counter to hold the count of numbers less than or equal to each index
+    for (int i = 1; i < 101; ++i)
+    {
+        counter[i] += counter[i - 1];
+    }
+
+    // Fill the result array using the counter
+    for (int i = 0; i < numsSize; ++i)
+    {
+        res[i] = nums[i] ? counter[nums[i] - 1] : 0;
     }
     return res;
 }
 
 int main()
 {
-    int nums[] = {1, 2, 3, 4};
+    int nums[] = {6, 5, 4, 8};
     int returnSize;
     int numsSize = 4;
     int *result = smallerNumbersThanCurrent(nums, numsSize, &returnSize);
