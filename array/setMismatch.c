@@ -1,23 +1,24 @@
 #include <stdio.h>
 
 /*
-Given an integer array nums of length n, you want to create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+You have a set of integers s, which originally contains all the numbers from 1 to n. Unfortunately, due to some error, one of the numbers in s got duplicated to another number in the set, which results in repetition of one number and loss of another number.
 
-Specifically, ans is the concatenation of two nums arrays.
+You are given an integer array nums representing the data status of this set after the error.
 
-Return the array ans.
+Find the number that occurs twice and the number that is missing and return them in the form of an array.
 
 Example 1:
-Input: nums = [1,2,1]
-Output: [1,2,1,1,2,1]
+Input: nums = [1,2,2,4]
+Output: [2,3]
 
 Example 2:
-Input: nums = [1,3,2,1]
-Output: [1,3,2,1,1,3,2,1]
+Input: nums = [1,1]
+Output: [1,2]
+
+
 Constraints:
-    n == nums.length
-    1 <= n <= 1000
-    1 <= nums[i] <= 1000
+    2 <= nums.length <= 104
+    1 <= nums[i] <= 104
 
 * Note: The returned array must be malloced, assume caller calls free().
 */
