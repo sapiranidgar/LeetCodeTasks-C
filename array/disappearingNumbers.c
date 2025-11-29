@@ -27,6 +27,39 @@ Constraints:
 
 int *findDisappearedNumbers(int *nums, int numsSize, int *returnSize)
 {
+    int *res = (int *)malloc(numsSize * sizeof(int));
+
+    // First pass: mark seen numbers by negating nums[x-1]
+    for (int i = 0; i < numsSize; i++)
+    {
+        int v = nums[i];
+
+        // Convert to positive without calling abs()
+        if (v < 0)
+            v = -v;
+
+        int idx = v - 1;
+
+        // Only write when needed
+        if (nums[idx] > 0)
+            nums[idx] = -nums[idx];
+    }
+
+    int result_idx = 0;
+    for (int i = 0; i < numsSize; i++)
+    {
+        if (nums[i] > 0)
+        {
+            res[result_idx++] = i + 1;
+        }
+    }
+
+    *returnSize = result_idx;
+    return res;
+}
+
+int *findDisappearedNumbersNotEfficient(int *nums, int numsSize, int *returnSize)
+{
     int n = numsSize + 1;
     int *counter = (int *)calloc(n, sizeof(int));
     int *res = (int *)malloc(numsSize * sizeof(int));
